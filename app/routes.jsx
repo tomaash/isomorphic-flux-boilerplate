@@ -14,6 +14,9 @@ export default (
       name='guides'
       handler={require('./components/guides')} />
     <Route
+      name='cars'
+      handler={require('./components/cars')} />
+    <Route
       name='profile'
       path='profile/:seed'
       handler={require('./components/profile')} />

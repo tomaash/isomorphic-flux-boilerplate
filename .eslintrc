@@ -8,7 +8,7 @@
     "mocha": true
   },
   "rules": {
-    "quotes": [2, "single"],
+    "quotes": false,
     "eol-last": [2],
     "no-mixed-requires": [0],
     "no-underscore-dangle": [0],

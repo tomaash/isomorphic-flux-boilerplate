@@ -60,8 +60,13 @@ export default {
           loader: 'json'
         },
         {
-          test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)$/,
+          // |svg|woff|eot|ttf
+          test: /\.(jpe?g|png|gif)$/,
           loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]'
+        },
+        { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'
+        },
+        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'
         },
         {
           test: /\.js$|.jsx$/,
@@ -71,6 +76,9 @@ export default {
         {
           test: /\.scss$/,
           loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+        },
+        { test: /\.css$/,
+          loader: 'style-loader!css-loader'
         }
       ]
     },

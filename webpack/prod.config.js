@@ -39,8 +39,10 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.(woff|eot|ttf)$/,
+        test: /\.(eot|ttf)$/,
         loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]'
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -54,6 +56,9 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css!autoprefixer?browsers=last 2 version!sass')
+      },
+      { test: /\.css$/,
+          loader: 'style-loader!css-loader'
       }
     ]
   },

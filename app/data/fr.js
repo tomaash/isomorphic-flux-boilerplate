@@ -2,7 +2,8 @@ export default {
   messages: {
     header: {
       users: 'Utilisateurs',
-      guides: 'Guides'
+      guides: 'Guides',
+      cars: 'Automoviles'
     },
     users: {
       title: 'Des utilisateurs au hasard',

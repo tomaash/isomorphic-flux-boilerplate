@@ -47,6 +47,11 @@ export default React.createClass({
               {this.getIntlMessage('header.guides')}
             </Link>
           </li>
+          <li>
+            <Link to='cars'>
+              {this.getIntlMessage('header.cars')}
+            </Link>
+          </li>
         </ul>
         <hr />
       </header>

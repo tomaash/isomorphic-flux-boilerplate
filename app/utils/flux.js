@@ -6,10 +6,12 @@ import AltResolver from './alt-resolver.js';
 import RequestsActions from 'actions/requests';
 import LocaleActions from 'actions/locale';
 import UsersActions from 'actions/users';
+import CarsActions from 'actions/cars';
 
 import RequestsStore from 'stores/requests';
 import LocaleStore from 'stores/locale';
 import UsersStore from 'stores/users';
+import CarsStore from 'stores/cars';
 
 class Flux extends Alt {
 
@@ -22,11 +24,13 @@ class Flux extends Alt {
     this.addActions('requests', RequestsActions);
     this.addActions('locale', LocaleActions);
     this.addActions('users', UsersActions);
+    this.addActions('cars', CarsActions);
 
     // Register Stores
     this.addStore('requests', RequestsStore);
     this.addStore('locale', LocaleStore);
     this.addStore('users', UsersStore);
+    this.addStore('cars', CarsStore);
   }
 
   resolve(result) {
