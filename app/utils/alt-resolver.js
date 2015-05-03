@@ -33,11 +33,11 @@ export default class AltResolver {
         debug('dev')('first render');
         React.renderToString(React.createElement(Handler, {flux}));
 
-        // Get the promises collected from the first rendering
-        const promises: Array = this.mapPromises();
+        // // Get the promises collected from the first rendering
+        // const promises: Array = this.mapPromises();
 
-        // Resolve all promises collected
-        await Promise.all(promises);
+        // // Resolve all promises collected
+        // await Promise.all(promises);
 
         debug('dev')('second render');
         // Get the new content with promises resolved

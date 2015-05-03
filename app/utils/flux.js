@@ -12,6 +12,7 @@ import RequestsStore from 'stores/requests';
 import LocaleStore from 'stores/locale';
 import UsersStore from 'stores/users';
 import CarsStore from 'stores/cars';
+import restful from 'restful.js';
 
 class Flux extends Alt {
 
@@ -31,6 +32,12 @@ class Flux extends Alt {
     this.addStore('locale', LocaleStore);
     this.addStore('users', UsersStore);
     this.addStore('cars', CarsStore);
+
+    this.api = restful('localhost')
+    // .header('AuthToken', 'test') // set global header
+    .prefixUrl('api')
+    // .protocol('https')
+    .port(3030);
   }
 
   resolve(result) {

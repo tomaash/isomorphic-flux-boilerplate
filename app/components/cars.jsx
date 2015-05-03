@@ -3,6 +3,9 @@
 import React from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
+import Formsy from 'formsy-react';
+import MyOwnInput from 'components/shared/my-own-input';
+import {clone} from 'lodash';
 
 export default React.createClass({
   displayName: 'Cars',
@@ -23,7 +26,7 @@ export default React.createClass({
     return this.carsStore().getState();
   },
   componentWillMount() {
-    // return this.props.flux.getActions('cars').fetch();
+    return this.carsActions().fetch();
   },
   componentDidMount() {
     this.listenTo(this.carsStore(), this.handleStoreChange);
@@ -31,34 +34,40 @@ export default React.createClass({
   handleStoreChange() {
     this.setState(this.getInitialState());
   },
-  addCar() {
-    this.carsActions().add(this.state.newCarName);
-    this.setState({newCarName: ''});
+  submit(model) {
+    this.carsActions().add(clone(model));
+    this.refs.carForm.reset();
   },
-  handleCarNameInput(event) {
-    this.setState({newCarName: event.target.value});
-  },
+
   render() {
     return (
       <div>
         <h1>Cars</h1>
-        <div className="input-group col-lg-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="New car name..."
-            value={this.state.newCarName}
-            onChange={this.handleCarNameInput}
-          />
-          <span className="input-group-btn">
-            <button className="btn btn-default" type="button" onClick={this.addCar}>Add</button>
-          </span>
-        </div>
+        <Formsy.Form ref="carForm" onSubmit={this.submit}>
+          <MyOwnInput name="brand" title="Brand" type="text"/>
+          <MyOwnInput name="model" title="Model" type="text"/>
+          <MyOwnInput name="year" title="Year" type="text"/>
+          <button className="btn btn-default" type="submit">Create</button>
+        </Formsy.Form>
         <br/>
-        <ul> {this.state.cars.map((car, index) =>
-          <li className='car' key={index}>{car}
-          </li>)}
-        </ul>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.cars.map((car, index) =>
+            <tr key={index}>
+              <td>{car.brand}</td>
+              <td>{car.model}</td>
+              <td>{car.year}</td>
+            </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }
