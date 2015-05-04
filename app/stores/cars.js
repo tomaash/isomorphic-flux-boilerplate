@@ -1,4 +1,5 @@
 'use strict';
+import {assign} from 'lodash';
 
 class CarsStore {
   constructor() {
@@ -6,13 +7,27 @@ class CarsStore {
     this.cars = ['kukabus'];
   }
 
-  onAdd(name) {
-    this.cars.push(name);
+  onAdd(car) {
+    console.log('adding ' + car.brand);
+  }
+
+  onAddSuccess(car) {
+    console.log('added ' + car.brand);
+    this.cars.push(car);
   }
 
   onFetchSuccess(cars) {
     this.cars = cars;
   }
+
+  onUpdateSuccess(msg) {
+    assign(msg.item, msg.data);
+  }
+
+  onDeleteSuccess(index) {
+    this.cars.splice(index, 1);
+  }
+
 }
 
 export default CarsStore;

@@ -30,8 +30,9 @@ export default class AltResolver {
       let content: string;
       try {
         // Fire first render to collect XHR promises
-        debug('dev')('first render');
-        React.renderToString(React.createElement(Handler, {flux}));
+
+        // debug('dev')('first render');
+        // React.renderToString(React.createElement(Handler, {flux}));
 
         // // Get the promises collected from the first rendering
         // const promises: Array = this.mapPromises();

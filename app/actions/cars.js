@@ -3,28 +3,26 @@
 class CarsActions {
   constructor() {
     this.generateActions(
-      'add', 'fetchSuccess'
+      'addSuccess', 'fetchSuccess', 'updateSuccess', 'deleteSuccess'
     );
   }
-
-  fetch() {
-    const promise = (done) => {
-      console.log('will get cars');
-      var carsCollection = this.alt.api.all('cars');
-      carsCollection.getAll().then((response) => {
-        var data = response().data;
-        console.log(data[0]);
-        this.actions.fetchSuccess(data);
-        return done();
-      }, (err) => {
-        console.log(err);
-        return done();
-      }).catch((err) => {
-        console.log(err);
-        return done();
-      });
-    };
-    this.alt.resolve(promise);
+  async fetch() {
+    const response = await this.alt.api.all('cars').getAll();
+    this.actions.fetchSuccess(response().data);
+  }
+  async add(car) {
+    this.dispatch(car);
+    const response = await this.alt.api.all('cars').post(car);
+    this.actions.addSuccess(response().data);
+  }
+  async update(data, item) {
+    const response = await this.alt.api.all('cars').put(item.id, data);
+    this.actions.updateSuccess({data: response().data, item: item});
+  }
+  async delete(car, index) {
+    // const response =
+    await this.alt.api.all('cars').delete(car.id);
+    this.actions.deleteSuccess(index);
   }
 }
 
