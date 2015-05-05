@@ -15,6 +15,9 @@ import responseTime from 'koa-response-time';
 import router from './router';
 import config from './config/init';
 
+import generateApi from 'koa-mongo-rest';
+import koaRouter from 'koa-router';
+
 const app = koa();
 const env = process.env.NODE_ENV || 'development';
 
@@ -67,7 +70,24 @@ else {
   app.use(mount('/assets', staticCache(path.join(__dirname, '../dist'), cacheOpts)));
 }
 
+
+const mongoUrl = '127.0.0.1:27017';
+const mongoose = require('mongoose');
+mongoose.connect(mongoUrl);
+
+const schema = new mongoose.Schema({
+  brand: String,
+  model: String,
+  year: Number
+});
+
+const model = mongoose.model('cars', schema);
+app.use(koaRouter(app));
+
+generateApi(app, model, '/api');
+
 app.use(router);
+
 app.listen(config.port);
 
 console.log(`Application started on port ${config.port}`);
